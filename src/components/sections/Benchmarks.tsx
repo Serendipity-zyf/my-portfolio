@@ -25,7 +25,7 @@ function BenchmarkCard({ category, cardIndex }: BenchmarkCardProps) {
           const barHeight = Math.round((entry.score / 100) * BAR_MAX_HEIGHT);
           const color = modelColors[entry.model] ?? "#9CA3AF";
           return (
-            <div key={entry.model} className="flex flex-col items-center gap-1 w-8">
+            <div key={entry.model} className="flex flex-col items-center gap-1 w-6 sm:w-8">
               {/* Score label above bar */}
               <span
                 className="text-[10px] font-bold leading-none tabular-nums"
@@ -72,8 +72,8 @@ export default function Benchmarks() {
     <section id="benchmarks" className="py-24 px-6">
       <div className="mx-auto max-w-6xl">
         <SectionTitle
-          title="Benchmarks"
-          subtitle="Performance comparison across standard evaluations"
+          title="LLM Frontier Tracker"
+          subtitle="Performance comparison of leading large language models"
         />
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
