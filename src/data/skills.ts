@@ -1,8 +1,8 @@
 import { IconType } from "react-icons";
 import { SiPython, SiGodotengine, SiDocker, SiTypescript } from "react-icons/si";
-import { FaRobot, FaLink, FaGamepad } from "react-icons/fa6";
+import { FaRobot, FaGamepad } from "react-icons/fa6";
 import { LuBrainCircuit } from "react-icons/lu";
-import { TbDatabaseSearch, TbBinaryTree } from "react-icons/tb";
+import { TbBinaryTree } from "react-icons/tb";
 
 export interface Skill {
   name: string;
@@ -25,8 +25,6 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: "LLM / Prompt Eng", icon: LuBrainCircuit },
       { name: "AI Agent Frameworks", icon: FaRobot },
-      { name: "RAG & Vector DB", icon: TbDatabaseSearch },
-      { name: "LangChain / LlamaIndex", icon: FaLink },
     ],
   },
   {
