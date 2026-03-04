@@ -1,34 +1,55 @@
-export interface Experience {
-  company: string;
+export interface TimelineEntry {
+  institution: string;
   role: string;
   period: string;
+  type: "education" | "work" | "future";
   description: string;
   tags: string[];
 }
 
-export const experiences: Experience[] = [
+export const timelineEntries: TimelineEntry[] = [
   {
-    company: "AI Startup",
-    role: "Senior AI Agent Engineer",
-    period: "2024 - Present",
+    institution: "Hohai University",
+    role: "BSc Mathematics",
+    period: "2018 – 2022",
+    type: "education",
     description:
-      "Architecting and building production-grade AI agent systems powered by large language models. Leading research on multi-agent orchestration, tool use, and long-horizon task planning.",
-    tags: ["Python", "LLM", "AI Agents", "LangChain", "RAG"],
+      "Undergraduate studies in mathematics, building strong foundations in analysis, algebra, and computational methods.",
+    tags: ["Mathematics", "Statistics", "Linear Algebra"],
   },
   {
-    company: "Tech Company",
-    role: "Machine Learning Engineer",
-    period: "2022 - 2024",
+    institution: "Sun Yat-sen University",
+    role: "MSc Computer Science",
+    period: "2022 – 2025",
+    type: "education",
     description:
-      "Developed and deployed NLP pipelines for document understanding and information extraction. Worked on fine-tuning and evaluation of domain-specific language models.",
-    tags: ["Python", "PyTorch", "Transformers", "NLP", "MLOps"],
+      "Graduate research on Product QA, LLM applications, and AI Agent systems.",
+    tags: ["LLM", "AI Agent", "Product QA", "Research"],
   },
   {
-    company: "Software Company",
-    role: "Backend Developer",
-    period: "2020 - 2022",
+    institution: "Tencent IEG",
+    role: "Intern",
+    period: "2024 – 2025",
+    type: "work",
     description:
-      "Built scalable backend services and APIs. Gained strong foundations in distributed systems, data engineering, and cloud infrastructure.",
-    tags: ["Python", "FastAPI", "PostgreSQL", "Docker", "AWS"],
+      "Interactive Entertainment Group internship, working on game-related AI and engineering projects.",
+    tags: ["AI", "Gaming", "Engineering"],
+  },
+  {
+    institution: "Meituan",
+    role: "Ad Search Algorithm Engineer",
+    period: "2025 – Present",
+    type: "work",
+    description:
+      "Building and optimizing ad search algorithms for one of China's largest tech platforms.",
+    tags: ["Search", "Algorithms", "Ads", "ML"],
+  },
+  {
+    institution: "PhD Studies",
+    role: "Doctoral Research (Planned)",
+    period: "2027 – Future",
+    type: "future",
+    description: "Planning to pursue doctoral studies in AI/ML research.",
+    tags: ["AI Research", "PhD"],
   },
 ];

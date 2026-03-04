@@ -1,64 +1,223 @@
 "use client";
 
+import { motion } from "framer-motion";
 import SectionTitle from "@/components/ui/SectionTitle";
-import ScrollReveal from "@/components/ui/ScrollReveal";
-import { experiences } from "@/data/experience";
+import { timelineEntries, type TimelineEntry } from "@/data/experience";
 
+// ---------------------------------------------------------------------------
+// Node dot styles by type
+// ---------------------------------------------------------------------------
+const dotStyles: Record<TimelineEntry["type"], string> = {
+  education: "border-blue-500 bg-blue-100",
+  work: "border-violet-500 bg-violet-100",
+  future: "border-dashed border-gray-400 bg-transparent",
+};
+
+const accentColors: Record<TimelineEntry["type"], string> = {
+  education: "text-blue-600",
+  work: "text-violet-600",
+  future: "text-gray-400",
+};
+
+const borderLeft: Record<TimelineEntry["type"], string> = {
+  education: "border-l-blue-500",
+  work: "border-l-violet-500",
+  future: "border-l-gray-300",
+};
+
+// ---------------------------------------------------------------------------
+// Timeline card
+// ---------------------------------------------------------------------------
+function TimelineCard({
+  entry,
+  position,
+  index,
+}: {
+  entry: TimelineEntry;
+  position: "above" | "below";
+  index: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: position === "above" ? -20 : 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: 0.3 + index * 0.12 }}
+      whileHover={{ y: position === "above" ? -4 : 4 }}
+      className={`rounded-xl border border-border ${borderLeft[entry.type]} border-l-2 bg-white/80 p-4 shadow-sm backdrop-blur transition-shadow hover:shadow-md`}
+    >
+      <p className={`text-[11px] font-semibold ${accentColors[entry.type]}`}>
+        {entry.period}
+      </p>
+      <h3 className="mt-1 text-sm font-bold text-foreground leading-tight">
+        {entry.institution}
+      </h3>
+      <p className="text-xs font-medium text-muted">{entry.role}</p>
+      <p className="mt-1.5 text-[11px] leading-relaxed text-muted">
+        {entry.description}
+      </p>
+      <div className="mt-2 flex flex-wrap gap-1">
+        {entry.tags.map((tag) => (
+          <span
+            key={tag}
+            className="rounded-full bg-card-bg px-2 py-0.5 text-[10px] text-muted"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Main section
+// ---------------------------------------------------------------------------
 export default function Experience() {
   return (
     <section id="experience" className="py-24 px-6">
-      <div className="mx-auto max-w-4xl">
-        <SectionTitle title="Experience" subtitle="Where I've worked" />
+      <div className="mx-auto max-w-6xl">
+        <SectionTitle title="Experience" subtitle="My journey so far" />
 
-        <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-0 top-0 bottom-0 w-px bg-border md:left-1/2" />
+        {/* ---- Desktop: horizontal timeline (lg+) ---- */}
+        <div className="hidden lg:block">
+          <div className="relative grid grid-cols-5 gap-4">
+            {/* Cards above (index 0, 2, 4) */}
+            {timelineEntries.map((entry, i) => (
+              <div key={`above-${i}`} className="flex flex-col justify-end">
+                {i % 2 === 0 ? (
+                  <TimelineCard entry={entry} position="above" index={i} />
+                ) : (
+                  <div />
+                )}
+              </div>
+            ))}
 
-          {experiences.map((exp, i) => (
-            <ScrollReveal key={i} delay={i * 0.1}>
-              <div
-                className={`relative mb-12 pl-8 md:w-1/2 md:pl-0 ${
-                  i % 2 === 0
-                    ? "md:pr-12 md:text-right"
-                    : "md:ml-auto md:pl-12"
-                }`}
+            {/* Timeline line + dots row */}
+            <div className="col-span-5 relative flex items-center py-4">
+              {/* Line */}
+              <motion.div
+                className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-blue-300 via-violet-300 to-gray-200"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
+                style={{ transformOrigin: "left" }}
+              />
+
+              {/* Dots */}
+              <div className="relative z-10 grid w-full grid-cols-5">
+                {timelineEntries.map((entry, i) => (
+                  <div key={`dot-${i}`} className="flex justify-center">
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{
+                        delay: 0.2 + i * 0.12,
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20,
+                      }}
+                      className="relative"
+                    >
+                      <div
+                        className={`h-4 w-4 rounded-full border-2 bg-white ${dotStyles[entry.type]} ${
+                          entry.type === "work" ? "rotate-45" : ""
+                        }`}
+                      />
+                      {/* Pulse for current */}
+                      {entry.period.includes("Present") && (
+                        <motion.div
+                          className="absolute inset-0 rounded-full border-2 border-violet-400"
+                          animate={{ scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }}
+                          transition={{ repeat: Infinity, duration: 2 }}
+                        />
+                      )}
+                      {/* Breathe for future */}
+                      {entry.type === "future" && (
+                        <motion.div
+                          className="absolute inset-0 rounded-full border-2 border-dashed border-gray-300"
+                          animate={{ opacity: [0.3, 0.8, 0.3] }}
+                          transition={{ repeat: Infinity, duration: 3 }}
+                        />
+                      )}
+                    </motion.div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Cards below (index 1, 3) */}
+            {timelineEntries.map((entry, i) => (
+              <div key={`below-${i}`} className="flex flex-col justify-start">
+                {i % 2 === 1 ? (
+                  <TimelineCard entry={entry} position="below" index={i} />
+                ) : (
+                  <div />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ---- Mobile / Tablet: vertical timeline ---- */}
+        <div className="lg:hidden relative">
+          <div className="absolute left-[7px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-300 via-violet-300 to-gray-200" />
+
+          <div className="space-y-8">
+            {timelineEntries.map((entry, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="relative pl-8"
               >
                 {/* Dot */}
-                <div
-                  className={`absolute top-1 h-3 w-3 rounded-full border-2 border-accent bg-white ${
-                    i % 2 === 0
-                      ? "left-[-6px] md:left-auto md:right-[-6px]"
-                      : "left-[-6px] md:left-[-6px]"
-                  }`}
-                />
-
-                <div className="rounded-2xl border border-border bg-white p-5 shadow-sm">
-                  <p className="text-xs font-medium text-accent">{exp.period}</p>
-                  <h3 className="mt-1 text-lg font-semibold text-foreground">
-                    {exp.role}
-                  </h3>
-                  <p className="text-sm font-medium text-muted">{exp.company}</p>
-                  <p className="mt-2 text-sm text-muted leading-relaxed">
-                    {exp.description}
-                  </p>
+                <div className="absolute left-0 top-4">
                   <div
-                    className={`mt-3 flex flex-wrap gap-2 ${
-                      i % 2 === 0 ? "md:justify-end" : ""
+                    className={`h-4 w-4 rounded-full border-2 bg-white ${dotStyles[entry.type]} ${
+                      entry.type === "work" ? "rotate-45" : ""
                     }`}
-                  >
-                    {exp.tags.map((tag) => (
+                  />
+                  {entry.period.includes("Present") && (
+                    <motion.div
+                      className="absolute inset-0 rounded-full border-2 border-violet-400"
+                      animate={{ scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }}
+                      transition={{ repeat: Infinity, duration: 2 }}
+                    />
+                  )}
+                </div>
+
+                <div
+                  className={`rounded-xl border border-border ${borderLeft[entry.type]} border-l-2 bg-white/80 p-4 shadow-sm`}
+                >
+                  <p className={`text-[11px] font-semibold ${accentColors[entry.type]}`}>
+                    {entry.period}
+                  </p>
+                  <h3 className="mt-1 text-sm font-bold text-foreground">
+                    {entry.institution}
+                  </h3>
+                  <p className="text-xs font-medium text-muted">{entry.role}</p>
+                  <p className="mt-1.5 text-[11px] leading-relaxed text-muted">
+                    {entry.description}
+                  </p>
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {entry.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-card-bg px-2.5 py-0.5 text-xs text-muted"
+                        className="rounded-full bg-card-bg px-2 py-0.5 text-[10px] text-muted"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
                 </div>
-              </div>
-            </ScrollReveal>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
