@@ -44,23 +44,23 @@ function TimelineCard({
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.3 + index * 0.12 }}
       whileHover={{ y: position === "above" ? -4 : 4 }}
-      className={`rounded-xl border border-border ${borderLeft[entry.type]} border-l-2 bg-white/80 p-4 shadow-sm backdrop-blur transition-shadow hover:shadow-md`}
+      className={`rounded-2xl border border-border ${borderLeft[entry.type]} border-l-[3px] bg-white/80 p-5 shadow-sm backdrop-blur transition-shadow hover:shadow-md`}
     >
-      <p className={`text-[11px] font-semibold ${accentColors[entry.type]}`}>
+      <p className={`text-xs font-semibold ${accentColors[entry.type]}`}>
         {entry.period}
       </p>
-      <h3 className="mt-1 text-sm font-bold text-foreground leading-tight">
+      <h3 className="mt-1.5 text-base font-bold text-foreground leading-snug">
         {entry.institution}
       </h3>
-      <p className="text-xs font-medium text-muted">{entry.role}</p>
-      <p className="mt-1.5 text-[11px] leading-relaxed text-muted">
+      <p className="mt-0.5 text-sm font-medium text-muted">{entry.role}</p>
+      <p className="mt-2 text-xs leading-relaxed text-muted">
         {entry.description}
       </p>
-      <div className="mt-2 flex flex-wrap gap-1">
+      <div className="mt-3 flex flex-wrap gap-1.5">
         {entry.tags.map((tag) => (
           <span
             key={tag}
-            className="rounded-full bg-card-bg px-2 py-0.5 text-[10px] text-muted"
+            className="rounded-full bg-card-bg px-2.5 py-0.5 text-[11px] text-muted"
           >
             {tag}
           </span>
@@ -81,7 +81,7 @@ export default function Experience() {
 
         {/* ---- Desktop: horizontal timeline (lg+) ---- */}
         <div className="hidden lg:block">
-          <div className="relative grid grid-cols-5 gap-4">
+          <div className="relative grid grid-cols-5 gap-5">
             {/* Cards above (index 0, 2, 4) */}
             {timelineEntries.map((entry, i) => (
               <div key={`above-${i}`} className="flex flex-col justify-end">
@@ -192,23 +192,23 @@ export default function Experience() {
                 </div>
 
                 <div
-                  className={`rounded-xl border border-border ${borderLeft[entry.type]} border-l-2 bg-white/80 p-4 shadow-sm`}
+                  className={`rounded-2xl border border-border ${borderLeft[entry.type]} border-l-[3px] bg-white/80 p-5 shadow-sm`}
                 >
-                  <p className={`text-[11px] font-semibold ${accentColors[entry.type]}`}>
+                  <p className={`text-xs font-semibold ${accentColors[entry.type]}`}>
                     {entry.period}
                   </p>
-                  <h3 className="mt-1 text-sm font-bold text-foreground">
+                  <h3 className="mt-1.5 text-base font-bold text-foreground">
                     {entry.institution}
                   </h3>
-                  <p className="text-xs font-medium text-muted">{entry.role}</p>
-                  <p className="mt-1.5 text-[11px] leading-relaxed text-muted">
+                  <p className="mt-0.5 text-sm font-medium text-muted">{entry.role}</p>
+                  <p className="mt-2 text-xs leading-relaxed text-muted">
                     {entry.description}
                   </p>
-                  <div className="mt-2 flex flex-wrap gap-1">
+                  <div className="mt-3 flex flex-wrap gap-1.5">
                     {entry.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-card-bg px-2 py-0.5 text-[10px] text-muted"
+                        className="rounded-full bg-card-bg px-2.5 py-0.5 text-[11px] text-muted"
                       >
                         {tag}
                       </span>

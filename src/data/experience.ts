@@ -14,8 +14,8 @@ export const timelineEntries: TimelineEntry[] = [
     period: "2018 – 2022",
     type: "education",
     description:
-      "Undergraduate studies in mathematics, building strong foundations in analysis, algebra, and computational methods.",
-    tags: ["Mathematics", "Statistics", "Linear Algebra"],
+      "Undergraduate studies in pure and applied mathematics. Built strong foundations in real analysis, linear algebra, probability theory, and numerical computation.",
+    tags: ["Mathematics", "Statistics", "Probability"],
   },
   {
     institution: "Sun Yat-sen University",
@@ -23,8 +23,8 @@ export const timelineEntries: TimelineEntry[] = [
     period: "2022 – 2025",
     type: "education",
     description:
-      "Graduate research on Product QA, LLM applications, and AI Agent systems.",
-    tags: ["LLM", "AI Agent", "Product QA", "Research"],
+      "Graduate research focused on product question answering, large language model applications, and autonomous AI agent systems. Published work on LLM-driven solutions.",
+    tags: ["LLM", "AI Agent", "NLP", "Research"],
   },
   {
     institution: "Tencent IEG",
@@ -32,8 +32,8 @@ export const timelineEntries: TimelineEntry[] = [
     period: "2024 – 2025",
     type: "work",
     description:
-      "Interactive Entertainment Group internship, working on game-related AI and engineering projects.",
-    tags: ["AI", "Gaming", "Engineering"],
+      "Interned at the Interactive Entertainment Group. Applied AI and ML techniques to game-related engineering challenges and user experience optimization.",
+    tags: ["AI", "Gaming", "ML", "Engineering"],
   },
   {
     institution: "Meituan",
@@ -41,15 +41,15 @@ export const timelineEntries: TimelineEntry[] = [
     period: "2025 – Present",
     type: "work",
     description:
-      "Building and optimizing ad search algorithms for one of China's largest tech platforms.",
-    tags: ["Search", "Algorithms", "Ads", "ML"],
+      "Designing and optimizing ad search ranking algorithms and relevance models for one of China's largest local services platforms.",
+    tags: ["Search", "Ranking", "Ads", "ML"],
   },
   {
     institution: "PhD Studies",
     role: "Doctoral Research (Planned)",
     period: "2027 – Future",
     type: "future",
-    description: "Planning to pursue doctoral studies in AI/ML research.",
-    tags: ["AI Research", "PhD"],
+    description: "Planning to pursue doctoral studies, deepening research in AI, machine learning, and intelligent agent systems.",
+    tags: ["AI Research", "ML", "PhD"],
   },
 ];
