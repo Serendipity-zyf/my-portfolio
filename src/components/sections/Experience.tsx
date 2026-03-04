@@ -26,7 +26,7 @@ const borderLeft: Record<TimelineEntry["type"], string> = {
 };
 
 // ---------------------------------------------------------------------------
-// Timeline card
+// Timeline card (landscape)
 // ---------------------------------------------------------------------------
 function TimelineCard({
   entry,
@@ -44,23 +44,27 @@ function TimelineCard({
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.3 + index * 0.12 }}
       whileHover={{ y: position === "above" ? -4 : 4 }}
-      className={`rounded-2xl border border-border ${borderLeft[entry.type]} border-l-[3px] bg-white/80 p-5 shadow-sm backdrop-blur transition-shadow hover:shadow-md`}
+      className={`w-[320px] rounded-2xl border border-border ${borderLeft[entry.type]} border-l-[3px] bg-white/80 px-5 py-4 shadow-sm backdrop-blur transition-shadow hover:shadow-md`}
     >
-      <p className={`text-xs font-semibold ${accentColors[entry.type]}`}>
-        {entry.period}
-      </p>
-      <h3 className="mt-1.5 text-base font-bold text-foreground leading-snug">
-        {entry.institution}
-      </h3>
-      <p className="mt-0.5 text-sm font-medium text-muted">{entry.role}</p>
-      <p className="mt-2 text-xs leading-relaxed text-muted">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h3 className="text-sm font-bold text-foreground leading-snug">
+            {entry.institution}
+          </h3>
+          <p className="text-xs font-medium text-muted">{entry.role}</p>
+        </div>
+        <span className={`shrink-0 text-[11px] font-semibold ${accentColors[entry.type]}`}>
+          {entry.period}
+        </span>
+      </div>
+      <p className="mt-2 text-[11px] leading-relaxed text-muted">
         {entry.description}
       </p>
-      <div className="mt-3 flex flex-wrap gap-1.5">
+      <div className="mt-2.5 flex flex-wrap gap-1.5">
         {entry.tags.map((tag) => (
           <span
             key={tag}
-            className="rounded-full bg-card-bg px-2.5 py-0.5 text-[11px] text-muted"
+            className="rounded-full bg-card-bg px-2.5 py-0.5 text-[10px] text-muted"
           >
             {tag}
           </span>
@@ -75,16 +79,19 @@ function TimelineCard({
 // ---------------------------------------------------------------------------
 export default function Experience() {
   return (
-    <section id="experience" className="py-24 px-6">
+    <section id="experience" className="py-24 px-6 overflow-hidden">
       <div className="mx-auto max-w-6xl">
         <SectionTitle title="Experience" subtitle="My journey so far" />
 
         {/* ---- Desktop: horizontal timeline (lg+) ---- */}
         <div className="hidden lg:block">
-          <div className="relative grid grid-cols-5 gap-5">
-            {/* Cards above (index 0, 2, 4) */}
+          {/* Cards above (index 0, 2, 4) */}
+          <div className="relative flex justify-between mb-3">
             {timelineEntries.map((entry, i) => (
-              <div key={`above-${i}`} className="flex flex-col justify-end">
+              <div
+                key={`above-${i}`}
+                className="flex-1 flex justify-center"
+              >
                 {i % 2 === 0 ? (
                   <TimelineCard entry={entry} position="above" index={i} />
                 ) : (
@@ -92,65 +99,64 @@ export default function Experience() {
                 )}
               </div>
             ))}
+          </div>
 
-            {/* Timeline line + dots row */}
-            <div className="col-span-5 relative flex items-center py-4">
-              {/* Line */}
-              <motion.div
-                className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-blue-300 via-violet-300 to-gray-200"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: "easeOut" }}
-                style={{ transformOrigin: "left" }}
-              />
-
-              {/* Dots */}
-              <div className="relative z-10 grid w-full grid-cols-5">
-                {timelineEntries.map((entry, i) => (
-                  <div key={`dot-${i}`} className="flex justify-center">
+          {/* Timeline line + dots */}
+          <div className="relative flex items-center py-3">
+            <motion.div
+              className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-blue-300 via-violet-300 to-gray-200"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              style={{ transformOrigin: "left" }}
+            />
+            <div className="relative z-10 flex w-full justify-between px-[10%]">
+              {timelineEntries.map((entry, i) => (
+                <motion.div
+                  key={`dot-${i}`}
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    delay: 0.2 + i * 0.12,
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 20,
+                  }}
+                  className="relative"
+                >
+                  <div
+                    className={`h-4 w-4 rounded-full border-2 bg-white ${dotStyles[entry.type]} ${
+                      entry.type === "work" ? "rotate-45" : ""
+                    }`}
+                  />
+                  {entry.period.includes("Present") && (
                     <motion.div
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        delay: 0.2 + i * 0.12,
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20,
-                      }}
-                      className="relative"
-                    >
-                      <div
-                        className={`h-4 w-4 rounded-full border-2 bg-white ${dotStyles[entry.type]} ${
-                          entry.type === "work" ? "rotate-45" : ""
-                        }`}
-                      />
-                      {/* Pulse for current */}
-                      {entry.period.includes("Present") && (
-                        <motion.div
-                          className="absolute inset-0 rounded-full border-2 border-violet-400"
-                          animate={{ scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }}
-                          transition={{ repeat: Infinity, duration: 2 }}
-                        />
-                      )}
-                      {/* Breathe for future */}
-                      {entry.type === "future" && (
-                        <motion.div
-                          className="absolute inset-0 rounded-full border-2 border-dashed border-gray-300"
-                          animate={{ opacity: [0.3, 0.8, 0.3] }}
-                          transition={{ repeat: Infinity, duration: 3 }}
-                        />
-                      )}
-                    </motion.div>
-                  </div>
-                ))}
-              </div>
+                      className="absolute inset-0 rounded-full border-2 border-violet-400"
+                      animate={{ scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }}
+                      transition={{ repeat: Infinity, duration: 2 }}
+                    />
+                  )}
+                  {entry.type === "future" && (
+                    <motion.div
+                      className="absolute inset-0 rounded-full border-2 border-dashed border-gray-300"
+                      animate={{ opacity: [0.3, 0.8, 0.3] }}
+                      transition={{ repeat: Infinity, duration: 3 }}
+                    />
+                  )}
+                </motion.div>
+              ))}
             </div>
+          </div>
 
-            {/* Cards below (index 1, 3) */}
+          {/* Cards below (index 1, 3) */}
+          <div className="relative flex justify-between mt-3">
             {timelineEntries.map((entry, i) => (
-              <div key={`below-${i}`} className="flex flex-col justify-start">
+              <div
+                key={`below-${i}`}
+                className="flex-1 flex justify-center"
+              >
                 {i % 2 === 1 ? (
                   <TimelineCard entry={entry} position="below" index={i} />
                 ) : (
@@ -175,7 +181,6 @@ export default function Experience() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="relative pl-8"
               >
-                {/* Dot */}
                 <div className="absolute left-0 top-4">
                   <div
                     className={`h-4 w-4 rounded-full border-2 bg-white ${dotStyles[entry.type]} ${
@@ -194,21 +199,25 @@ export default function Experience() {
                 <div
                   className={`rounded-2xl border border-border ${borderLeft[entry.type]} border-l-[3px] bg-white/80 p-5 shadow-sm`}
                 >
-                  <p className={`text-xs font-semibold ${accentColors[entry.type]}`}>
-                    {entry.period}
-                  </p>
-                  <h3 className="mt-1.5 text-base font-bold text-foreground">
-                    {entry.institution}
-                  </h3>
-                  <p className="mt-0.5 text-sm font-medium text-muted">{entry.role}</p>
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h3 className="text-sm font-bold text-foreground">
+                        {entry.institution}
+                      </h3>
+                      <p className="text-xs font-medium text-muted">{entry.role}</p>
+                    </div>
+                    <span className={`shrink-0 text-[11px] font-semibold ${accentColors[entry.type]}`}>
+                      {entry.period}
+                    </span>
+                  </div>
                   <p className="mt-2 text-xs leading-relaxed text-muted">
                     {entry.description}
                   </p>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
+                  <div className="mt-2.5 flex flex-wrap gap-1.5">
                     {entry.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-card-bg px-2.5 py-0.5 text-[11px] text-muted"
+                        className="rounded-full bg-card-bg px-2.5 py-0.5 text-[10px] text-muted"
                       >
                         {tag}
                       </span>
