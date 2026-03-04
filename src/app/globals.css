@@ -36,22 +36,6 @@ html {
   to { transform: rotate(360deg); }
 }
 
-/* Skill marquee animations */
-@keyframes marquee-left {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-@keyframes marquee-right {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hover\:\[animation-play-state\:paused\] {
-    animation: none !important;
-  }
-}
-
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
