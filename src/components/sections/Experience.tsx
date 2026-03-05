@@ -8,14 +8,14 @@ import { timelineEntries, type TimelineEntry } from "@/data/experience";
 // Node dot styles by type
 // ---------------------------------------------------------------------------
 const dotStyles: Record<TimelineEntry["type"], string> = {
-  education: "border-blue-500 bg-blue-100",
-  work: "border-violet-500 bg-violet-100",
+  education: "border-blue-500 bg-blue-100 dark:bg-blue-900",
+  work: "border-violet-500 bg-violet-100 dark:bg-violet-900",
   future: "border-dashed border-gray-400 bg-transparent",
 };
 
 const accentColors: Record<TimelineEntry["type"], string> = {
-  education: "text-blue-600",
-  work: "text-violet-600",
+  education: "text-blue-600 dark:text-blue-400",
+  work: "text-violet-600 dark:text-violet-400",
   future: "text-gray-400",
 };
 
@@ -44,7 +44,7 @@ function TimelineCard({
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: 0.3 + index * 0.12 }}
       whileHover={{ y: position === "above" ? -4 : 4 }}
-      className={`w-[320px] rounded-2xl border border-border ${borderLeft[entry.type]} border-l-[3px] bg-white/80 px-5 py-4 shadow-sm backdrop-blur transition-shadow hover:shadow-md`}
+      className={`w-[320px] rounded-2xl border border-border ${borderLeft[entry.type]} border-l-[3px] bg-background/80 px-5 py-4 shadow-sm backdrop-blur transition-shadow hover:shadow-md`}
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
@@ -104,7 +104,7 @@ export default function Experience() {
           {/* Timeline line + dots */}
           <div className="relative flex items-center py-3">
             <motion.div
-              className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-blue-300 via-violet-300 to-gray-200"
+              className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-blue-300 via-violet-300 to-gray-200 dark:from-blue-700 dark:via-violet-700 dark:to-gray-600"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
@@ -127,7 +127,7 @@ export default function Experience() {
                   className="relative"
                 >
                   <div
-                    className={`h-4 w-4 rounded-full border-2 bg-white ${dotStyles[entry.type]} ${
+                    className={`h-4 w-4 rounded-full border-2 bg-background ${dotStyles[entry.type]} ${
                       entry.type === "work" ? "rotate-45" : ""
                     }`}
                   />
@@ -169,7 +169,7 @@ export default function Experience() {
 
         {/* ---- Mobile / Tablet: vertical timeline ---- */}
         <div className="lg:hidden relative">
-          <div className="absolute left-[7px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-300 via-violet-300 to-gray-200" />
+          <div className="absolute left-[7px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-300 via-violet-300 to-gray-200 dark:from-blue-700 dark:via-violet-700 dark:to-gray-600" />
 
           <div className="space-y-8">
             {timelineEntries.map((entry, i) => (
@@ -183,7 +183,7 @@ export default function Experience() {
               >
                 <div className="absolute left-0 top-4">
                   <div
-                    className={`h-4 w-4 rounded-full border-2 bg-white ${dotStyles[entry.type]} ${
+                    className={`h-4 w-4 rounded-full border-2 bg-background ${dotStyles[entry.type]} ${
                       entry.type === "work" ? "rotate-45" : ""
                     }`}
                   />
@@ -197,7 +197,7 @@ export default function Experience() {
                 </div>
 
                 <div
-                  className={`rounded-2xl border border-border ${borderLeft[entry.type]} border-l-[3px] bg-white/80 p-5 shadow-sm`}
+                  className={`rounded-2xl border border-border ${borderLeft[entry.type]} border-l-[3px] bg-background/80 p-5 shadow-sm`}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>

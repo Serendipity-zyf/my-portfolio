@@ -32,7 +32,7 @@ export default function StatCard({
   items,
 }: StatCardProps) {
   return (
-    <div className="rounded-2xl border border-border bg-white p-6">
+    <div className="rounded-2xl border border-border bg-background p-6">
       <div className="flex items-center gap-3 mb-4">
         <span className="text-3xl">{icon}</span>
         <div>
