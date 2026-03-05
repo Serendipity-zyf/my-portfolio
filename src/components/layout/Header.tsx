@@ -11,7 +11,7 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -107,13 +107,13 @@ export default function Header() {
           })}
           {mounted && (
             <motion.button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="ml-1 flex h-8 w-8 items-center justify-center rounded-full text-muted hover:text-foreground hover:bg-card-bg transition-all"
+              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+              className="ml-1 flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted hover:text-foreground hover:bg-card-bg transition-all"
               aria-label="Toggle theme"
               whileHover={{ scale: 1.15, rotate: 15 }}
               whileTap={{ scale: 0.95 }}
             >
-              {theme === "dark" ? (
+              {resolvedTheme === "dark" ? (
                 <FaSun className="text-lg" />
               ) : (
                 <FaMoon className="text-lg" />
@@ -179,12 +179,12 @@ export default function Header() {
                 {mounted && (
                   <button
                     onClick={() =>
-                      setTheme(theme === "dark" ? "light" : "dark")
+                      setTheme(resolvedTheme === "dark" ? "light" : "dark")
                     }
-                    className="ml-auto flex h-8 w-8 items-center justify-center rounded-full text-muted hover:text-foreground hover:bg-card-bg transition-all"
+                    className="ml-auto flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted hover:text-foreground hover:bg-card-bg transition-all"
                     aria-label="Toggle theme"
                   >
-                    {theme === "dark" ? (
+                    {resolvedTheme === "dark" ? (
                       <FaSun className="text-lg" />
                     ) : (
                       <FaMoon className="text-lg" />
