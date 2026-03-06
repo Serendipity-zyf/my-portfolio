@@ -19,7 +19,7 @@ export const projects: Project[] = [
     thumbnail: { gradient: "from-emerald-400 via-cyan-400 to-blue-500", icon: TbWorldWww },
     tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
     github: "https://github.com/PixelCookie-zyf/my-portfolio",
-    demo: "https://my-portfolio-zyf.vercel.app",
+    demo: "https://www.pixelcookie.me",
   },
   {
     title: "HotRecForCTR",

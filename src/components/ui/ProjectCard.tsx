@@ -92,7 +92,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               className="inline-flex items-center gap-1.5 text-sm text-accent transition-colors hover:text-accent/80"
             >
               <FaArrowUpRightFromSquare className="text-xs" />
-              Demo
+              Live
             </a>
           )}
         </div>
